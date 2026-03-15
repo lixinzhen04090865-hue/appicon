@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>App Adaptive Icon Generator - Generate iOS/Android/Windows/Mac/Web Multi-platform App Icons Online - Online Tool</title>
+    <link rel="shortcut icon" href="static/favicon.ico">
+    <meta name="keywords" content="App图标生成工具, 应用图标生成器, iOS图标, 安卓图标, Windows图标, Mac图标, Web图标, 图标制作, 图标设计, 图标尺寸转换, 图标适配, 应用图标, App icon, 图标生成, 在线图标工具, 图標導出, 图标模板">
+    <meta name="description" content="本工具专为App开发者、设计师和产品经理设计，提供快速、便捷的多平台应用图标生成服务。支持iOS、安卓、Windows、Mac、Web等主流平台的各种图标尺寸规格，一键上传原始图片，自动生成符合各平台规范的图标文件，无需手动调整尺寸。简化应用开发流程，让您的应用在各大平台都能展示完美的图标效果">
+    <link rel="stylesheet" href="static/css/style.css%3Fv=20251007.css" type="text/css">
+    <link href="static/css/remixicon/remixicon.css" rel="stylesheet"/>
+    <script defer src="https://s.sdxtsz.com/script.js" data-website-id="c54ed25f-2df0-4c81-ba7e-8cd1abbe692a"></script>
+</head>
+<style>
+    .main-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .control-panel {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        height: fit-content;
+    }
+
+    .preview-panel {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .control-group {
+        margin-bottom: 25px;
+    }
+
+    label {
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #1d1d1f;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid #d2d2d7;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #007aff;
+    }
+
+    input[type="color"] {
+        width: 60px;
+        height: 40px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+
+    .color-input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .color-input-wrapper input[type="text"] {
+        flex: 1;
+    }
+
+    .shape-selector {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .shape-option {
+        padding: 15px;
+        border: 2px solid #d2d2d7;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .shape-option:hover {
+        border-color: #007aff;
+        background: #f0f8ff;
+    }
+
+    .shape-option.active {
+        border-color: #007aff;
+        background: #007aff;
+        color: white;
+    }
+
+    .preview-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .canvas-wrapper {
+        position: relative;
+        border-radius: 12px;
+        padding: 20px;
+        display: inline-block;
+    }
+
+    .canvas-container {
+        position: relative;
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 200px;
+        width: 100%;
+    }
+
+    .canvas-container canvas {
+        max-width: 100%;
+        height: auto;
+        transition: transform 0.3s;
+    }
+
+    .canvas-container canvas:hover {
+        transform: scale(1.05);
+    }
+
+    .preview-sizes {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 15px;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .size-preview {
+        text-align: center;
+    }
+
+    .size-preview canvas {
+        width: 60px;
+        height: 60px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .size-preview label {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+    }
+
+    .export-panel {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .platform-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #f5f5f7;
+    }
+
+    .platform-tab {
+        padding: 10px 20px;
+        background: none;
+        border: none;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        color: #666;
+        transition: all 0.3s;
+    }
+
+    .platform-tab.active {
+        color: #007aff;
+        border-bottom: 2px solid #007aff;
+    }
+
+    .platform-content {
+        display: none;
+    }
+
+    .platform-content.active {
+        display: block;
+    }
+
+    .export-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    .button-group {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    button {
+        flex: 1;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .btn-primary {
+        background: #007aff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #0051d5;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,122,255,0.3);
+    }
+
+    .btn-secondary {
+        background: #f5f5f7;
+        color: #1d1d1f;
+        border: 1px solid #d2d2d7;
+    }
+
+    .btn-secondary:hover {
+        background: #e8e8ed;
+    }
+
+    .image-upload {
+        margin-bottom: 20px;
+    }
+
+    .upload-area {
+        border: 2px dashed #d2d2d7;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .upload-area:hover {
+        border-color: #007aff;
+        background: #f0f8ff;
+    }
+
+    .upload-area.dragover {
+        border-color: #007aff;
+        background: #e6f2ff;
+    }
+
+    .upload-icon {
+        font-size: 48px;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    .upload-text {
+        color: #666;
+        font-size: 14px;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .image-preview {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    .image-preview img {
+        max-width: 100px;
+        max-height: 100px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .remove-image {
+        margin-top: 10px;
+        padding: 5px 15px;
+        background: #ff3b30;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .remove-image:hover {
+        background: #d70015;
+    }
+
+    .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #34c759;
+        color: white;
+        padding: 16px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s;
+        z-index: 1000;
+    }
+
+    .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .scale-control {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .scale-control input[type="range"] {
+        flex: 1;
+    }
+
+    .scale-value {
+        min-width: 50px;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .main-content {
+            grid-template-columns: 1fr;
+        }
+
+        .export-options {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+<body>
+
+<aside>
+    <h1 class="logo"><a href="index.html">Tools</a></h1>
+    <nav class="side-nav">
+        
+
+        
+    </nav>
+</aside>
+<script>
+    let tools = document.querySelectorAll('.side-nav li');
+    for (let i = 0; i < tools.length; i++) {
+        let node = tools[i];
+        if (node.querySelector('a').getAttribute('href').endsWith(document.location.pathname)) {
+            node.classList.add('active');
+            break
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        var currentUrl = window.location.pathname;
+
+        
+        var links = document.querySelectorAll('.side-nav a');
+
+        
+        links.forEach(function(link) {
+            var linkUrl = link.getAttribute('href');
+
+            
+            if (currentUrl === linkUrl) {
+                link.parentElement.classList.add('active');
+
+                
+                link.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        });
+    });
+</script>
+
+<main>
+    <div class="container">
+        <div class="main-content">
+            <div class="control-panel">
+                <h2 style="margin-bottom: 20px;">设计控制</h2>
+
+                <div class="control-group">
+                    <label>图标类型</label>
+                    <select id="iconType">
+                        <option value="text">文字图标</option>
+                        <option value="image">图片图标</option>
+                    </select>
+                </div>
+
+                <div class="control-group" id="textControls">
+                    <label>图标文字</label>
+                    <input type="text" id="iconText" placeholder="输入图标文字" value="A">
+                </div>
+
+                <div class="control-group" id="imageControls" style="display: none;">
+                    <label>上传图片</label>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📷</div>
+                        <div class="upload-text">点击或拖拽图片到此处</div>
+                    </div>
+                    <input type="file" id="imageInput" accept="image/*">
+                    <div class="image-preview" id="imagePreview"></div>
+
+                    <div class="control-group" id="imageScaleControl" style="display: none;">
+                        <label>图片缩放</label>
+                        <div class="scale-control">
+                            <input type="range" id="imageScale" value="100" min="50" max="200" step="10">
+                            <span class="scale-value" id="imageScaleValue">100%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group" id="fontSizeControl">
+                    <label>字体大小</label>
+                    <input type="number" id="fontSize" value="400" min="100" max="800" step="50">
+                </div>
+
+                <div class="control-group">
+                    <label>背景颜色</label>
+                    <div class="color-input-wrapper">
+                        <input type="color" id="bgColor" value="#007aff">
+                        <input type="text" id="bgColorText" value="#007aff" placeholder="#000000">
+                    </div>
+                </div>
+                
+                <!-- === MODIFICATION START: Added Opacity Slider === -->
+                <div class="control-group">
+                    <label>背景不透明度 (Alpha)</label>
+                    <div class="scale-control">
+                        <input type="range" id="bgAlpha" value="1" min="0" max="1" step="0.01">
+                        <span class="scale-value" id="bgAlphaValue">1.00</span>
+                    </div>
+                </div>
+                <!-- === MODIFICATION END === -->
+
+                <div class="control-group">
+                    <label>文字/图片颜色</label>
+                    <div class="color-input-wrapper">
+                        <input type="color" id="textColor" value="#ffffff">
+                        <input type="text" id="textColorText" value="#ffffff" placeholder="#ffffff">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>图标形状</label>
+                    <div class="shape-selector">
+                        <div class="shape-option active" data-shape="square">方形</div>
+                        <div class="shape-option" data-shape="rounded">圆角</div>
+                        <div class="shape-option" data-shape="circle">圆形</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-panel">
+                <h2 style="margin-bottom: 20px;">实时预览</h2>
+                <div class="preview-container">
+                    <div class="canvas-wrapper">
+                        <div class="canvas-container" id="canvasContainer">
+                            <canvas id="mainCanvas"></canvas>
+                        </div>
+                    </div>
+                    <div class="preview-sizes" id="previewSizes"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="export-panel">
+            <h2 style="margin-bottom: 20px;">导出选项</h2>
+            <div class="platform-tabs">
+                <button class="platform-tab active" data-platform="ios">iOS</button>
+                <button class="platform-tab" data-platform="android">Android</button>
+                <button class="platform-tab" data-platform="windows">Windows</button>
+                <button class="platform-tab" data-platform="web">Web</button>
+            </div>
+
+            <div class="platform-content active" id="ios-content"></div>
+            <div class="platform-content" id="android-content"></div>
+            <div class="platform-content" id="windows-content"></div>
+            <div class="platform-content" id="web-content"></div>
+
+            <div class="button-group">
+                <button class="btn-secondary" onclick="selectAllSizes()">全选</button>
+                <button class="btn-secondary" onclick="deselectAllSizes()">取消全选</button>
+                <button class="btn-primary" onclick="downloadSelected()">下载选中尺寸</button>
+                <button class="btn-primary" onclick="downloadAll()">下载所有尺寸</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="static/js/jszip.min.js"></script>
+    <script>
+        
+        const platformSizes = {
+            ios: [
+                { name: 'App Store', width: 1024, height: 1024, id: 'appstore' },
+                { name: 'iPhone @3x', width: 180, height: 180, id: 'iphone@3x' },
+                { name: 'iPhone @2x', width: 120, height: 120, id: 'iphone@2x' },
+                { name: 'iPad Pro @2x', width: 167, height: 167, id: 'ipad_pro@2x' },
+                { name: 'iPad @2x', width: 152, height: 152, id: 'ipad@2x' },
+                { name: 'iPhone @3x Settings', width: 87, height: 87, id: 'iphone@3xsettings' },
+                { name: 'iPhone @2x Spotlight', width: 80, height: 80, id: 'iphone@2xspotlight' },
+                { name: 'iPad @1x', width: 76, height: 76, id: 'ipad@1x' },
+                { name: 'iPhone @2x Notification', width: 60, height: 60, id: 'iphone@2xnotification' },
+                { name: 'iPhone @2x Settings', width: 58, height: 58, id: 'iphone@2xsettings' },
+                { name: 'iPhone @2x Spotlight', width: 40, height: 40, id: 'iphone@2xspotlight2' },
+                { name: 'iPhone @2x/iPad @1x Settings', width: 29, height: 29, id: 'settings' },
+                { name: 'iPhone @2x/iPad @1x Notification', width: 20, height: 20, id: 'notification' },
+                { name: 'iPad Pro @1x', width: 84, height: 84, id: 'ipad_pro@1x' },
+                { name: 'iPhone @3x Notification', width: 90, height: 90, id: 'iphone@3xnotification' },
+                { name: 'iPad @2x Spotlight', width: 80, height: 80, id: 'ipad@2xspotlight' },
+                { name: 'iPad @1x Spotlight', width: 40, height: 40, id: 'ipad@1xspotlight' },
+                { name: 'CarPlay', width: 60, height: 60, id: 'carplay' },
+                { name: 'iMessage App', width: 27, height: 27, id: 'imessage' },
+                { name: 'Watch App', width: 48, height: 48, id: 'watch' },
+                { name: 'Watch Settings', width: 29, height: 29, id: 'watchsettings' },
+                { name: 'Watch Notification', width: 24, height: 24, id: 'watchnotification' }
+            ],
+            android: [
+                { name: 'Play Store', width: 512, height: 512, id: 'playStore' },
+                { name: 'Launcher (xxxhdpi)', width: 192, height: 192, id: 'launcher_xxxhdpi' },
+                { name: 'Launcher (xxhdpi)', width: 144, height: 144, id: 'launcher_xxhdpi' },
+                { name: 'Launcher (xhdpi)', width: 96, height: 96, id: 'launcher_xhdpi' },
+                { name: 'Launcher (hdpi)', width: 72, height: 72, id: 'launcher_hdpi' },
+                { name: 'Launcher (mdpi)', width: 48, height: 48, id: 'launcher_mdpi' },
+                { name: 'Notification (xxxhdpi)', width: 64, height: 64, id: 'notification_xxxhdpi' },
+                { name: 'Notification (xxhdpi)', width: 48, height: 48, id: 'notification_xxhdpi' },
+                { name: 'Notification (xhdpi)', width: 36, height: 36, id: 'notification_xhdpi' },
+                { name: 'Notification (hdpi)', width: 27, height: 27, id: 'notification_hdpi' },
+                { name: 'Notification (mdpi)', width: 18, height: 18, id: 'notification_mdpi' },
+                { name: 'Round Launcher (xxxhdpi)', width: 192, height: 192, id: 'round_launcher_xxxhdpi' },
+                { name: 'Round Launcher (xxhdpi)', width: 144, height: 144, id: 'round_launcher_xxhdpi' },
+                { name: 'Round Launcher (xhdpi)', width: 96, height: 96, id: 'round_launcher_xhdpi' },
+                { name: 'Round Launcher (hdpi)', width: 72, height: 72, id: 'round_launcher_hdpi' },
+                { name: 'Round Launcher (mdpi)', width: 48, height: 48, id: 'round_launcher_mdpi' },
+                { name: 'Action Bar (xxxhdpi)', width: 64, height: 64, id: 'actionbar_xxxhdpi' },
+                { name: 'Action Bar (xxhdpi)', width: 48, height: 48, id: 'actionbar_xxhdpi' },
+                { name: 'Action Bar (xhdpi)', width: 36, height: 36, id: 'actionbar_xhdpi' },
+                { name: 'Action Bar (hdpi)', width: 27, height: 27, id: 'actionbar_hdpi' },
+                { name: 'Action Bar (mdpi)', width: 18, height: 18, id: 'actionbar_mdpi' },
+                { name: 'Context Menu (xxxhdpi)', width: 48, height: 48, id: 'contextmenu_xxxhdpi' },
+                { name: 'Context Menu (xxhdpi)', width: 36, height: 36, id: 'contextmenu_xxhdpi' },
+                { name: 'Context Menu (xhdpi)', width: 27, height: 27, id: 'contextmenu_xhdpi' },
+                { name: 'Context Menu (hdpi)', width: 20, height: 20, id: 'contextmenu_hdpi' },
+                { name: 'Context Menu (mdpi)', width: 14, height: 14, id: 'contextmenu_mdpi' },
+                { name: 'TV Banner', width: 320, height: 180, id: 'tv_banner' },
+                { name: 'TV Poster', width: 400, height: 240, id: 'tv_poster' }
+            ],
+            windows: [
+                { name: 'Store Logo', width: 300, height: 300, id: 'store' },
+                { name: 'Small Tile', width: 71, height: 71, id: 'smalltile' },
+                { name: 'Medium Tile', width: 150, height: 150, id: 'mediumtile' },
+                { name: 'Wide Tile', width: 310, height: 150, id: 'widetile' },
+                { name: 'Large Tile', width: 310, height: 310, id: 'largetile' },
+                { name: 'Splash Screen', width: 620, height: 300, id: 'splash' },
+                { name: 'Badge Logo', width: 24, height: 24, id: 'badge' },
+                { name: 'Small Logo', width: 30, height: 30, id: 'smalllogo' },
+                { name: 'Square30x30Logo', width: 30, height: 30, id: 'square30x30logo' },
+                { name: 'Square44x44Logo', width: 44, height: 44, id: 'square44x44logo' },
+                { name: 'Square70x70Logo', width: 70, height: 70, id: 'square70x70logo' },
+                { name: 'Square71x71Logo', width: 71, height: 71, id: 'square71x71logo' },
+                { name: 'Square150x150Logo', width: 150, height: 150, id: 'square150x150logo' },
+                { name: 'Square310x310Logo', width: 310, height: 310, id: 'square310x310logo' },
+                { name: 'Wide310x150Logo', width: 310, height: 150, id: 'wide310x150logo' },
+                { name: 'Square44x44TargetSize', width: 44, height: 44, id: 'square44x44targetsize' },
+                { name: 'Square150x150TargetSize', width: 150, height: 150, id: 'square150x150targetsize' },
+                { name: 'Square310x310TargetSize', width: 310, height: 310, id: 'square310x310targetsize' },
+                { name: 'SplashScreenImage', width: 620, height: 300, id: 'splashscreenimage' },
+                { name: 'BadgeLogo', width: 24, height: 24, id: 'badgelogo' },
+                { name: 'Package Logo', width: 50, height: 50, id: 'packagelogo' }
+            ],
+            web: [
+                { name: 'Favicon', width: 16, height: 16, id: 'favicon' },
+                { name: 'Favicon', width: 32, height: 32, id: 'favicon32' },
+                { name: 'Apple Touch Icon', width: 180, height: 180, id: 'apple' },
+                { name: 'Android Chrome', width: 192, height: 192, id: 'chrome' },
+                { name: 'Microsoft Tile', width: 270, height: 270, id: 'microsoft' },
+                { name: 'Web Manifest', width: 512, height: 512, id: 'manifest' },
+                { name: 'Favicon', width: 48, height: 48, id: 'favicon48' },
+                { name: 'Favicon', width: 64, height: 64, id: 'favicon64' },
+                { name: 'Favicon', width: 96, height: 96, id: 'favicon96' },
+                { name: 'Favicon', width: 128, height: 128, id: 'favicon128' },
+                { name: 'Favicon', width: 196, height: 196, id: 'favicon196' },
+                { name: 'Apple Touch Icon', width: 152, height: 152, id: 'apple152' },
+                { name: 'Apple Touch Icon', width: 167, height: 167, id: 'apple167' },
+                { name: 'Apple Touch Icon', width: 120, height: 120, id: 'apple120' },
+                { name: 'Apple Touch Icon', width: 76, height: 76, id: 'apple76' },
+                { name: 'Android Chrome', width: 128, height: 128, id: 'chrome128' },
+                { name: 'Android Chrome', width: 256, height: 256, id: 'chrome256' },
+                { name: 'Microsoft Tile', width: 144, height: 144, id: 'microsoft144' },
+                { name: 'Microsoft Tile', width: 558, height: 270, id: 'microsoft558' },
+                { name: 'Web Manifest', width: 192, height: 192, id: 'manifest192' },
+                { name: 'Web Manifest', width: 256, height: 256, id: 'manifest256' },
+                { name: 'PWA Icon', width: 512, height: 512, id: 'pwa512' },
+                { name: 'Coast', width: 228, height: 228, id: 'coast' },
+                { name: 'Firefox', width: 96, height: 96, id: 'firefox' },
+                { name: 'Facebook OG', width: 1200, height: 630, id: 'facebook' },
+                { name: 'Twitter Card', width: 1200, height: 675, id: 'twitter' }
+            ]
+        };
+
+        let currentShape = 'square';
+        let selectedSizes = new Set(['appstore', 'iphone@3x', 'iphone@2x']);
+        let currentPlatform = 'ios';
+        let uploadedImage = null;
+        let iconType = 'text';
+        let imageScale = 100;
+
+        
+        const sizeIdMap = {};
+        for (const [platform, sizes] of Object.entries(platformSizes)) {
+            for (const size of sizes) {
+                sizeIdMap[size.id] = { size, platform };
+            }
+        }
+
+        
+        function resizeCanvas() {
+            const container = document.getElementById('canvasContainer');
+            const canvas = document.getElementById('mainCanvas');
+            const containerWidth = container.offsetWidth - 40; 
+
+            
+            let canvasSize = Math.min(containerWidth, 1024);
+
+            
+            canvas.width = canvasSize;
+            canvas.height = canvasSize;
+
+            
+            drawIcon();
+        }
+
+        
+        window.addEventListener('resize', resizeCanvas);
+
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeControls();
+            initializeExportOptions();
+
+            
+            resizeCanvas();
+
+            
+            drawIcon();
+            updatePreviewSizes();
+        });
+        
+        // === MODIFICATION START: Added helper function to convert Hex to RGBA ===
+        function hexToRgba(hex, alpha) {
+            let r = 0, g = 0, b = 0;
+            // 3 digits
+            if (hex.length == 4) {
+                r = "0x" + hex[1] + hex[1];
+                g = "0x" + hex[2] + hex[2];
+                b = "0x" + hex[3] + hex[3];
+            // 6 digits
+            } else if (hex.length == 7) {
+                r = "0x" + hex[1] + hex[2];
+                g = "0x" + hex[3] + hex[4];
+                b = "0x" + hex[5] + hex[6];
+            }
+            return `rgba(${+r}, ${+g}, ${+b}, ${alpha})`;
+        }
+        // === MODIFICATION END ===
+
+        function initializeControls() {
+            
+            document.getElementById('iconType').addEventListener('change', function(e) {
+                iconType = e.target.value;
+                if (iconType === 'text') {
+                    document.getElementById('textControls').style.display = 'block';
+                    document.getElementById('imageControls').style.display = 'none';
+                    document.getElementById('fontSizeControl').style.display = 'block';
+                    document.getElementById('imageScaleControl').style.display = 'none';
+                } else {
+                    document.getElementById('textControls').style.display = 'none';
+                    document.getElementById('imageControls').style.display = 'block';
+                    document.getElementById('fontSizeControl').style.display = 'none';
+                    document.getElementById('imageScaleControl').style.display = 'block';
+                }
+                
+                drawIcon();
+            });
+
+            
+            document.getElementById('iconText').addEventListener('input', drawIcon);
+
+            
+            document.getElementById('fontSize').addEventListener('input', drawIcon);
+
+            
+            document.getElementById('bgColor').addEventListener('input', function(e) {
+                document.getElementById('bgColorText').value = e.target.value;
+                drawIcon();
+            });
+
+            document.getElementById('bgColorText').addEventListener('input', function(e) {
+                if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                    document.getElementById('bgColor').value = e.target.value;
+                    drawIcon();
+                }
+            });
+            
+            // === MODIFICATION START: Added event listener for opacity slider ===
+            document.getElementById('bgAlpha').addEventListener('input', function(e) {
+                document.getElementById('bgAlphaValue').textContent = parseFloat(e.target.value).toFixed(2);
+                drawIcon();
+            });
+            // === MODIFICATION END ===
+
+            document.getElementById('textColor').addEventListener('input', function(e) {
+                document.getElementById('textColorText').value = e.target.value;
+                drawIcon();
+            });
+
+            document.getElementById('textColorText').addEventListener('input', function(e) {
+                if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                    document.getElementById('textColor').value = e.target.value;
+                    drawIcon();
+                }
+            });
+
+            
+            document.querySelectorAll('.shape-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.shape-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    currentShape = this.dataset.shape;
+                    drawIcon();
+                });
+            });
+
+            
+            document.getElementById('imageScale').addEventListener('input', function(e) {
+                imageScale = parseInt(e.target.value);
+                document.getElementById('imageScaleValue').textContent = imageScale + '%';
+                drawIcon();
+            });
+
+            
+            const uploadArea = document.getElementById('uploadArea');
+            const imageInput = document.getElementById('imageInput');
+
+            uploadArea.addEventListener('click', () => imageInput.click());
+
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleImageUpload(files[0]);
+                }
+            });
+
+            imageInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleImageUpload(e.target.files[0]);
+                }
+            });
+        }
+
+        function handleImageUpload(file) {
+            if (!file.type.startsWith('image/')) {
+                showToast('请上传图片文件', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    uploadedImage = img;
+                    displayImagePreview(e.target.result);
+                    drawIcon();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function displayImagePreview(src) {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = `
+                <img src="${src}" alt="上传的图片">
+                <button class="remove-image" onclick="removeImage()">移除图片</button>
+            `;
+        }
+
+        function removeImage() {
+            uploadedImage = null;
+            document.getElementById('imagePreview').innerHTML = '';
+            document.getElementById('imageInput').value = '';
+            drawIcon();
+        }
+
+        function initializeExportOptions() {
+            
+            document.querySelectorAll('.platform-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.platform-content').forEach(c => c.classList.remove('active'));
+
+                    this.classList.add('active');
+                    currentPlatform = this.dataset.platform;
+                    document.getElementById(`${currentPlatform}-content`).classList.add('active');
+
+                    updateExportOptions();
+                });
+            });
+
+            updateExportOptions();
+        }
+
+        function updateExportOptions() {
+            const container = document.getElementById(`${currentPlatform}-content`);
+            container.innerHTML = '';
+
+            const sizes = platformSizes[currentPlatform];
+            const exportOptions = document.createElement('div');
+            exportOptions.className = 'export-options';
+
+            sizes.forEach(size => {
+                const div = document.createElement('div');
+                div.className = 'checkbox-group checkbox';
+                div.innerHTML = `
+                    <input type="checkbox" id="${size.id}" ${selectedSizes.has(size.id) ? 'checked' : ''}>
+                    <label for="${size.id}">${size.name} (${size.width}x${size.height})</label>
+                `;
+
+                const checkbox = div.querySelector('input');
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        selectedSizes.add(size.id);
+                    } else {
+                        selectedSizes.delete(size.id);
+                    }
+                });
+
+                exportOptions.appendChild(div);
+            });
+
+            container.appendChild(exportOptions);
+        }
+        
+        // === MODIFICATION START: Updated drawIcon to use RGBA ===
+        function drawIcon() {
+            const canvas = document.getElementById('mainCanvas');
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+
+            if (size === 0) {
+                resizeCanvas();
+                return;
+            }
+            ctx.clearRect(0, 0, size, size);
+
+            const hexColor = document.getElementById('bgColor').value;
+            const alpha = parseFloat(document.getElementById('bgAlpha').value);
+            const bgColor = hexToRgba(hexColor, alpha);
+            
+            ctx.fillStyle = bgColor;
+            ctx.beginPath();
+
+            const padding = size * 0.02;
+
+            if (currentShape === 'circle') {
+                ctx.arc(size / 2, size / 2, size / 2 - padding, 0, Math.PI * 2);
+            } else if (currentShape === 'rounded') {
+                roundRect(ctx, padding, padding, size - padding * 2, size - padding * 2, size * 0.08);
+            } else {
+                ctx.rect(padding, padding, size - padding * 2, size - padding * 2);
+            }
+
+            ctx.fill();
+
+            if (iconType === 'text') {
+                const textColor = document.getElementById('textColor').value;
+                const text = document.getElementById('iconText').value || 'A';
+                const fontSize = parseInt(document.getElementById('fontSize').value) * (size / 1024);
+
+                ctx.fillStyle = textColor;
+                ctx.font = `bold ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(text, size / 2, size / 2);
+            } else if (iconType === 'image') {
+                if (uploadedImage) {
+                    const imgPadding = size * 0.12;
+                    const imageSize = size - imgPadding * 2;
+                    const scaledSize = imageSize * (imageScale / 100);
+                    const xPos = (size - scaledSize) / 2;
+                    const yPos = (size - scaledSize) / 2;
+
+                    ctx.save();
+                    if (currentShape === 'circle') {
+                        ctx.beginPath();
+                        ctx.arc(size / 2, size / 2, size / 2 - padding, 0, Math.PI * 2);
+                        ctx.clip();
+                    } else if (currentShape === 'rounded') {
+                        ctx.beginPath();
+                        roundRect(ctx, padding, padding, size - padding * 2, size - padding * 2, size * 0.08);
+                        ctx.clip();
+                    }
+                    ctx.drawImage(uploadedImage, xPos, yPos, scaledSize, scaledSize);
+                    ctx.restore();
+                } else {
+                    const textColor = document.getElementById('textColor').value;
+                    ctx.fillStyle = textColor;
+                    ctx.font = '16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('请上传图片', size / 2, size / 2);
+                }
+            }
+            updatePreviewSizes();
+        }
+        // === MODIFICATION END ===
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function updatePreviewSizes() {
+            const container = document.getElementById('previewSizes');
+            container.innerHTML = '';
+            
+            const sizes = platformSizes[currentPlatform];
+            const previewSizes = sizes.filter(s => [1024, 512, 192, 180, 152, 120, 96, 76].some(dim =>
+                s.width === dim || s.height === dim)).slice(0, 4);
+
+            previewSizes.forEach(size => {
+                const div = document.createElement('div');
+                div.className = 'size-preview';
+
+                const canvas = document.createElement('canvas');
+                canvas.width = 60;
+                canvas.height = 60;
+
+                const ctx = canvas.getContext('2d');
+                // Pass the correct target icon dimensions
+                drawIconOnCanvas(ctx, 60, 60, size.width, size.height);
+
+                const label = document.createElement('label');
+                label.textContent = `${size.name}`;
+
+                div.appendChild(canvas);
+                div.appendChild(label);
+                container.appendChild(div);
+            });
+        }
+        
+        // === MODIFICATION START: Updated drawIconOnCanvas to use RGBA and respect shapes ===
+        function drawIconOnCanvas(ctx, canvasWidth, canvasHeight) {
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+            // Get color and alpha to create RGBA value
+            const hexColor = document.getElementById('bgColor').value;
+            const alpha = parseFloat(document.getElementById('bgAlpha').value);
+            const bgColor = hexToRgba(hexColor, alpha);
+
+            // Draw the background shape (respecting circle/rounded/square)
+            ctx.fillStyle = bgColor;
+            const shape = document.querySelector('.shape-option.active').dataset.shape;
+            const padding = canvasWidth * 0.02;
+
+            if (shape === 'circle') {
+                ctx.beginPath();
+                ctx.arc(canvasWidth / 2, canvasHeight / 2, (canvasWidth / 2) - padding, 0, Math.PI * 2);
+                ctx.fill();
+            } else if (shape === 'rounded') {
+                roundRect(ctx, padding, padding, canvasWidth - padding * 2, canvasHeight - padding * 2, canvasWidth * 0.08);
+                ctx.fill();
+            } else {
+                ctx.fillRect(padding, padding, canvasWidth - padding * 2, canvasHeight - padding * 2);
+            }
+
+            // Save context and clip to the drawn shape before adding text/image
+            ctx.save();
+            if (shape !== 'square') { // No need to clip for a square that's already drawn
+                ctx.clip();
+            }
+
+            if (iconType === 'text') {
+                const textColor = document.getElementById('textColor').value;
+                const text = document.getElementById('iconText').value || 'A';
+                const fontSize = parseInt(document.getElementById('fontSize').value) * (canvasWidth / 1024);
+
+                ctx.fillStyle = textColor;
+                ctx.font = `bold ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(text, canvasWidth / 2, canvasHeight / 2);
+            } else if (iconType === 'image') {
+                if (uploadedImage) {
+                    const imgPadding = canvasWidth * 0.12;
+                    const imageSize = canvasWidth - imgPadding * 2;
+                    const scaledImageSize = imageSize * (imageScale / 100);
+                    const imgX = (canvasWidth - scaledImageSize) / 2;
+                    const imgY = (canvasHeight - scaledImageSize) / 2;
+
+                    ctx.drawImage(uploadedImage, imgX, imgY, scaledImageSize, scaledImageSize);
+                } else {
+                    // Fallback text if no image is uploaded
+                    const textColor = document.getElementById('textColor').value;
+                    ctx.fillStyle = textColor;
+                    ctx.font = '12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('No Image', canvasWidth / 2, canvasHeight / 2);
+                }
+            }
+
+            ctx.restore();
+        }
+        // === MODIFICATION END ===
+
+        function selectAllSizes() {
+            
+            const sizes = platformSizes[currentPlatform];
+            sizes.forEach(size => {
+                selectedSizes.add(size.id);
+                const checkbox = document.getElementById(size.id);
+                if (checkbox) checkbox.checked = true;
+            });
+        }
+
+        function deselectAllSizes() {
+            
+            const sizes = platformSizes[currentPlatform];
+            sizes.forEach(size => {
+                selectedSizes.delete(size.id);
+                const checkbox = document.getElementById(size.id);
+                if (checkbox) checkbox.checked = false;
+            });
+        }
+
+        function downloadSelected() {
+            
+            const selectedSizesArray = Array.from(selectedSizes);
+            if (selectedSizesArray.length === 0) {
+                showToast('请至少选择一个尺寸', 'error');
+                return;
+            }
+
+            
+            const sizesToDownload = [];
+            for (const id of selectedSizesArray) {
+                if (sizeIdMap[id]) {
+                    sizesToDownload.push({
+                        ...sizeIdMap[id].size,
+                        platform: sizeIdMap[id].platform
+                    });
+                }
+            }
+
+            downloadIcons(sizesToDownload, 'Selected-Icons');
+        }
+
+        function downloadAll() {
+            
+            const allSizes = [];
+            for (const [platform, sizes] of Object.entries(platformSizes)) {
+                for (const size of sizes) {
+                    allSizes.push({
+                        ...size,
+                        platform
+                    });
+                }
+            }
+
+            downloadIcons(allSizes, 'All-Platforms-Icons');
+        }
+
+        function downloadIcons(sizes, zipFileName) {
+            const zip = new JSZip();
+
+            let completed = 0;
+            const total = sizes.length;
+
+            sizes.forEach(size => {
+                const canvas = document.createElement('canvas');
+                canvas.width = size.width;
+                canvas.height = size.height;
+                const ctx = canvas.getContext('2d');
+
+                drawIconOnCanvas(ctx, size.width, size.height);
+
+                
+                canvas.toBlob(function(blob) {
+                    
+                    zip.file(`${size.platform}/${size.name}_${size.width}x${size.height}.png`, blob);
+
+                    completed++;
+                    if (completed === total) {
+                        
+                        zip.generateAsync({type: "blob"}).then(function(content) {
+                            const url = URL.createObjectURL(content);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `${zipFileName}.zip`;
+                            a.click();
+                            URL.revokeObjectURL(url);
+
+                            showToast(`成功下载 ${total} 个图标文件！`);
+                        });
+                    }
+                }, 'image/png');
+            });
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.background = type === 'error' ? '#ff3b30' : '#34c759';
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</main>
+</body>
+</html>
